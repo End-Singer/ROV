@@ -1,0 +1,20 @@
+#ifndef __CONFIG_H_
+#define __CONFIG_H_
+
+#include "drv_hal_conf.h"
+#include "ocd_conf.h"
+#include "algo_conf.h"
+#include "dev_conf.h"
+
+/* 用户句柄声明包含区 */
+
+extern tagTIM_T tTimer2;
+
+extern tagGPIO_T demoGPIO[];
+
+extern tagUART_T demoUart;
+
+extern tagGPIO_T PWM_GPIO[];
+
+extern tagPWM_T MT_PWM[];
+#endif

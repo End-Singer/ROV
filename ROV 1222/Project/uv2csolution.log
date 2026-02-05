@@ -1,0 +1,9 @@
+Error: 0 error(s), 1 warning(s):
+Warnings:
+	Fix compiler version (6.7.0) is configured in the uVision project.
+	However 6.22.0, the earliest version available through vcpkg,
+	is specified in the generated vcpkg-configuration.json and csolution file.
+1 out of 1 target(s) converted
+Created solution: D:/水机/NOO_ROV/TIM_PWM/Project/STM32.csolution.yml
+With projects:
+- D:/水机/NOO_ROV/TIM_PWM/Project/STM32.cproject.yml

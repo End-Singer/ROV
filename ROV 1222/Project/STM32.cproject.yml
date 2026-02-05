@@ -1,0 +1,175 @@
+project:
+  packs:
+    - pack: Keil::STM32F1xx_DFP@^2.2.0
+  setups:
+    - setup: Options for Demo
+      add-path:
+        - ../Apply/Logic/Inc
+        - ../Apply/Task/Inc
+        - ../Bsp/OCD/Inc
+        - ../Bsp/FatFs/Inc
+        - ../Bsp/Algo/Inc
+        - ../Bsp/Dev/Inc
+        - ../Bsp/RTOS/RT-Thread/include
+        - ../Bsp/RTOS/FreeRTOS/include
+        - ../Bsp/RTOS/FreeRTOS/CMSIS_RTOS_V2
+        - ../Bsp/RTOS/FreeRTOS/portable/RVDS/ARM_CM3
+        - ../Driver/Inc
+        - ../Hardware/STM32F1XX/CMSIS/Include
+        - ../Hardware/STM32F1XX/CMSIS/Device/ST/STM32F1xx/Include
+        - ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Inc
+        - ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Inc/Legacy
+      debug: "on"
+      define:
+        - USE_HAL_DRIVER
+        - STM32F103xE
+        - STM32F1_SGA_ENABLE
+        - __MICROLIB
+      define-asm:
+        - __MICROLIB
+      misc:
+        - C:
+            - -std=c99
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+          CPP:
+            - -xc++
+            - -std=c++11
+            - -fno-exceptions
+          ASM:
+            - -masm=auto
+          Link:
+            - --library_type=microlib
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+  linker:
+    - script: STM32_Demo.sct
+  groups:
+    - group: Apply/Logic
+      files:
+        - file: ../Apply/Logic/Src/main.c
+        - file: ../Apply/Logic/Src/usercode.c
+        - file: ../Apply/Logic/Src/config.c
+        - file: ../Apply/Logic/Src/threadpool.c
+    - group: Apply/Task
+      files:
+        - file: ../Apply/Task/Src/task_irq.c
+        - file: ../Apply/Task/Src/task_sysinit.c
+        - file: ../Apply/Task/Src/task_userinit.c
+    - group: Bsp/OCD
+      files:
+        - file: ../Bsp/OCD/Src/ocd_ads1256.c
+        - file: ../Bsp/OCD/Src/ocd_at24cxx.c
+        - file: ../Bsp/OCD/Src/ocd_ds3231.c
+        - file: ../Bsp/OCD/Src/ocd_jy901.c
+        - file: ../Bsp/OCD/Src/ocd_fatfs.c
+        - file: ../Bsp/OCD/Src/ocd_ms5837.c
+        - file: ../Bsp/OCD/Src/ocd_oled.c
+        - file: ../Bsp/OCD/Src/ocd_rm3100.c
+        - file: ../Bsp/OCD/Src/ocd_sdcard.c
+    - group: Bsp/Dev
+      files:
+        - file: ../Bsp/Dev/Src/dev_ps2.c
+    - group: Bsp/Algo
+      files:
+        - file: ../Bsp/Algo/Src/algo_func.c
+        - file: ../Bsp/Algo/Src/algo_pid.c
+    - group: Bsp/FatFs
+      files:
+        - file: ../Bsp/FatFs/Src/ff.c
+        - file: ../Bsp/FatFs/Src/diskio.c
+    - group: Driver
+      files:
+        - file: ../Driver/Src/drv_hal.c
+        - file: ../Driver/Src/drv_hal_adc.c
+        - file: ../Driver/Src/drv_hal_dac.c
+        - file: ../Driver/Src/drv_hal_delay.c
+        - file: ../Driver/Src/drv_hal_flash.c
+        - file: ../Driver/Src/drv_hal_gpio.c
+        - file: ../Driver/Src/drv_hal_iic_soft.c
+        - file: ../Driver/Src/drv_hal_pwm.c
+        - file: ../Driver/Src/drv_hal_pwr.c
+        - file: ../Driver/Src/drv_hal_spi.c
+        - file: ../Driver/Src/drv_hal_spi_soft.c
+        - file: ../Driver/Src/drv_hal_timer.c
+        - file: ../Driver/Src/drv_hal_uart.c
+        - file: ../Driver/Src/drv_hal_wdg.c
+    - group: Hardware
+      files:
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_can.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cec.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_crc.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dac_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_eth.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_hcd.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2s.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_irda.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_mmc.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nand.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pccard.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sd.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_smartcard.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_usart.c
+        - file: ../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_wwdg.c
+        - file: ../Hardware/STM32F1XX/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c
+        - file: ../Hardware/STM32F1XX/CMSIS/Device/ST/STM32F1xx/Source/Templates/arm/startup_stm32f103xe.s
+          misc:
+            - ASM:
+                - -masm=auto
+    - group: Doc
+      files:
+        - file: ../Doc/工程目录介绍.txt
+        - file: ../Doc/工程维护记录.txt
+        - file: ../Doc/句柄资源示例.txt
